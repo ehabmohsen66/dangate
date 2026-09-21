@@ -1,0 +1,3 @@
+import {z} from 'zod';
+export const consultationSchema=z.object({
+requestId:z.string().uuid(),name:z.string().trim().min(2,'Please enter your name.').max(100),company:z.string().trim().max(150).default(''),jobTitle:z.string().trim().max(100).default(''),email:z.string().trim().email('Please enter a valid business email.').max(254),phone:z.string().trim().max(40).default(''),country:z.string().trim().min(2,'Please select your country.').max(80),service:z.string().trim().max(120).default('Not sure yet'),challenge:z.string().trim().min(20,'Please tell us a little more about your challenge (at least 20 characters).').max(4000),website:z.string().max(500).default('')});

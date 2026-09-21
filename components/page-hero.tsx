@@ -1,0 +1,3 @@
+import Link from 'next/link';
+import {ArrowUpRight} from 'lucide-react';
+export function PageHero({label,title,description,service}:{label:string;title:string;description?:string;service?:string}){return <section className="page-hero"><div className="breadcrumbs"><Link href="/">Home</Link><span>/</span>{service&&<><Link href="/services">Our expertise</Link><span>/</span></>}<span>{label}</span></div><span className="eyebrow">{service?'OUR EXPERTISE':label.toUpperCase()}</span><h1>{title}</h1>{description&&<p>{description}</p>}{service&&<Link className="button" href={'/contact?service='+encodeURIComponent(service)}>Discuss this service <ArrowUpRight size={19}/></Link>}</section>}

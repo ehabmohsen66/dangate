@@ -179,3 +179,11 @@ body{font-family:var(--font-display);-webkit-font-smoothing:antialiased}
 @keyframes sky-drift{to{transform:translateX(calc(var(--sw)*-0.76923))}}
 .hero-scene{animation:image-enter 1.3s both}
 }
+/* Hero: airliner crossing the sky */
+.hero-plane{position:absolute;left:0;top:24%;width:clamp(60px,13cqw,120px);z-index:1;pointer-events:none;opacity:0;filter:drop-shadow(0 2px 3px rgba(20,40,70,.18))}
+.hero-plane svg{display:block;width:100%;height:auto;overflow:visible}
+@media(max-width:600px){.hero-plane{top:14%;width:64px}}
+@media(prefers-reduced-motion:no-preference){
+.hero-plane{animation:plane-fly 55s linear 3s infinite}
+@keyframes plane-fly{0%{opacity:0;transform:translate(-18cqw,4cqh) rotate(-2deg)}3%{opacity:1}72%{opacity:1;transform:translate(105cqw,-7cqh) rotate(-3deg)}74%,100%{opacity:0;transform:translate(110cqw,-7.5cqh) rotate(-3deg)}}
+}

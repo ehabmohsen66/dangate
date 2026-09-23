@@ -272,21 +272,39 @@ const FRAGMENT_SHADERS: Record<SiriWaveVariant, string> = {
  * transparent). The original shader is left intact: its `main` is renamed and
  * called, then the colour is converted to premultiplied RGBA.
  */
-function withTransparency(src: string) {
+function withTransparency(src: string, onLight: boolean) {
+  const body = onLight
+    ? `
+  // On light pages a white-hot core would vanish, so the neutral (white)
+  // part of the glow is replaced by uCore and only the chroma is kept.
+  float mx = max(rgb.r, max(rgb.g, rgb.b));
+  float mn = min(rgb.r, min(rgb.g, rgb.b));
+  vec3 chroma = (rgb - mn) / max(mx - mn, 1e-3);
+  float sat = smoothstep(0.04, 0.35, mx - mn);
+  vec3 tint = mix(uCore, chroma, sat);
+  float a = clamp(mx * 1.15, 0.0, 1.0);
+  gl_FragColor = vec4(tint * a, a);`
+    : `
+  float a = max(rgb.r, max(rgb.g, rgb.b));
+  gl_FragColor = vec4(rgb, a);`
   return (
     src.replace(
       "void main(){ mainImage(gl_FragColor, gl_FragCoord.xy); }",
       "",
     ) +
     `
+uniform vec3 uCore;
 void main(){
   vec4 c;
   mainImage(c, gl_FragCoord.xy);
-  vec3 rgb = clamp(c.rgb, 0.0, 1.0);
-  float a = max(rgb.r, max(rgb.g, rgb.b));
-  gl_FragColor = vec4(rgb, a);
+  vec3 rgb = clamp(c.rgb, 0.0, 1.0);${body}
 }`
   )
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.replace("#", ""), 16)
+  return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255]
 }
 
 export interface SiriWaveProps
@@ -299,6 +317,10 @@ export interface SiriWaveProps
   renderScale?: number
   /** Render with no background: dark pixels become transparent. */
   transparent?: boolean
+  /** With `transparent`, tune colours for light/white pages (white core -> `coreColor`). */
+  onLight?: boolean
+  /** Core colour used by `onLight` (hex). */
+  coreColor?: string
 }
 
 export function SiriWave({
@@ -306,6 +328,8 @@ export function SiriWave({
   size = 420,
   renderScale = 0.75,
   transparent = false,
+  onLight = false,
+  coreColor = "#075794",
   className,
   style,
   ...props
@@ -335,7 +359,7 @@ export function SiriWave({
     }
 
     const fragSrc = transparent
-      ? withTransparency(FRAGMENT_SHADERS[variant])
+      ? withTransparency(FRAGMENT_SHADERS[variant], onLight)
       : FRAGMENT_SHADERS[variant]
 
     const program = gl.createProgram()!
@@ -359,6 +383,8 @@ export function SiriWave({
 
     const uResolution = gl.getUniformLocation(program, "iResolution")
     const uTime = gl.getUniformLocation(program, "iTime")
+    const uCore = gl.getUniformLocation(program, "uCore")
+    if (uCore) gl.uniform3f(uCore, ...hexToRgb(coreColor))
 
     const dim = Math.round(size * renderScale)
     canvas.width = dim
@@ -409,7 +435,7 @@ export function SiriWave({
       gl.deleteShader(fs)
       gl.deleteBuffer(buffer)
     }
-  }, [variant, size, renderScale, transparent])
+  }, [variant, size, renderScale, transparent, onLight, coreColor])
 
   return (
     <canvas

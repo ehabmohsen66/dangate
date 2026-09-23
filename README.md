@@ -100,6 +100,17 @@ Use SIWC for account pages, user-specific dashboards, saved records, and write a
 
 ## Local D1 migrations
 
+## Cloudflare Turnstile
+
+The consultation form uses Cloudflare Turnstile. Create a widget in the Cloudflare dashboard for the deployed hostname, then configure these Worker environment variables:
+
+```text
+TURNSTILE_SITE_KEY=your-public-site-key
+TURNSTILE_SECRET_KEY=your-private-secret-key
+```
+
+For local development, copy `.dev.vars.example` to `.dev.vars`. It contains Cloudflare's always-pass testing keys and must never be used in production.
+
 For a D1-backed local preview, generate SQL with `npm run db:generate`. Build once through the Sites skill's build entrypoint (or `npm run build` for standalone use) to generate `dist/server/wrangler.json`, rebuilding if bindings change. From the project root, apply each pending migration in order:
 
 ```sh

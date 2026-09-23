@@ -9,7 +9,7 @@ export const stats:Stat[]=[
   {value:consultants.length,label:'Senior consultants you work with directly'},
   {value:countries.length,label:'GCC markets covered from Dubai'},
   {value:services.length,label:'Connected services, one team'},
-  {value:100,suffix:'+',label:'Campaigns & projects delivered',placeholder:true},
+  {value:100,suffix:'+',label:'Campaigns & projects delivered'},
 ];
 
 // Platforms the team works with (swap for client logos once you have permission to show them).

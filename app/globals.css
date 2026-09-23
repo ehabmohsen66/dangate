@@ -127,3 +127,44 @@ body{font-family:var(--font-display);-webkit-font-smoothing:antialiased}
 .gcc-network{margin:10px -6% 0}}
 .gcc-network svg{max-height:360px}.stat{padding:34px 32px 30px}.stat:first-child{padding-left:4.5vw}
 @media(max-width:850px){.stat,.stat:first-child{padding:26px 6%}}
+/* Platform logos marquee */
+.marquee-track li{gap:0;padding-right:0;margin-right:64px;color:#8b8e98;transition:color .3s}
+.marquee-track li svg{width:34px;height:34px;fill:currentColor;display:block}
+.marquee-track li .logo-name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.marquee-track li:hover{color:var(--brand)}
+.marquee{padding-top:26px;padding-bottom:26px}
+@media(max-width:600px){.marquee-track li{margin-right:44px}.marquee-track li svg{width:28px;height:28px}}
+/* GCC map: full site width */
+.gcc-band{overflow:hidden}
+.gcc-network{width:100vw;margin:30px 0 0 calc(50% - 50vw);padding:30px 3vw 10px;background-image:radial-gradient(circle,rgba(255,255,255,.16) 1.2px,transparent 1.4px);background-size:22px 22px;mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent)}
+.gcc-network svg{max-height:none;width:100%}
+.gcc-network text{font-size:14px}.gcc-network .gcc-hub-label{font-size:17px}
+.gcc-arc{stroke-width:2}
+@media(max-width:850px){.gcc-network{padding:20px 2vw 6px}.gcc-network text{font-size:22px}.gcc-network .gcc-hub-label{font-size:26px}.gcc-arc{stroke-width:3}}
+@media(max-width:600px){.gcc-network{margin-left:calc(50% - 50vw)}.gcc-network text{font-size:30px}.gcc-network .gcc-hub-label{font-size:34px}.gcc-arc{stroke-width:4}.gcc-network svg{margin-top:20px}}
+/* Insights magnifier */
+.magnifier{flex:1;display:flex;justify-content:center;align-self:center;min-width:0}
+.magnifier svg{width:100%;max-width:440px;height:auto;overflow:visible}
+@media(max-width:600px){.magnifier{margin:24px 0 8px}.magnifier svg{max-width:100%}}
+@media(max-width:850px){.gcc-node{r:11px}.gcc-hub{r:16px}.gcc-ring{r:11px}.gcc-pulse-dot{r:6px}}
+@media(prefers-reduced-motion:reduce){.magnifier animate,.magnifier animateTransform{display:none}}
+.gcc-network{margin-top:-10px;padding:0 3vw 0;mask-image:none}
+.gcc-band{padding-bottom:40px}
+@media(max-width:600px){.gcc-network{margin-top:10px}}
+/* GCC map as its own full-width band (fixes overflow) */
+.gcc-band{padding-bottom:10px}
+.gcc-map-band{background-color:var(--blue);background-image:var(--grain);padding:0 3vw 50px}
+.gcc-map-band .gcc-network{width:auto;margin:0;padding:0;background-image:radial-gradient(circle,rgba(255,255,255,.16) 1.2px,transparent 1.4px);background-size:22px 22px}
+@media(max-width:600px){.gcc-map-band{padding:10px 2vw 36px}.gcc-map-band .gcc-network{margin:0}.gcc-network text{font-size:38px}.gcc-network .gcc-hub-label{font-size:42px}}
+/* CTA shake when it comes fully into view */
+@media(prefers-reduced-motion:no-preference){
+.shake-on-view.shake{animation:cta-shake .9s .35s cubic-bezier(.36,.07,.19,.97) both}
+@keyframes cta-shake{0%,100%{translate:0 0;rotate:0deg}10%,50%,90%{translate:-6px 0;rotate:-1.5deg}30%,70%{translate:6px 0;rotate:1.5deg}}
+}
+/* Calmer logo strip */
+.marquee{padding-top:30px;padding-bottom:30px}
+.marquee-track li{margin-right:110px;color:#9a9ca5;opacity:.55;transition:color .3s,opacity .3s}
+.marquee-track li:hover{opacity:1}
+.marquee-track li svg{width:26px;height:26px}
+@media(prefers-reduced-motion:no-preference){.marquee-track{animation-duration:70s}}
+@media(max-width:600px){.marquee-track li{margin-right:64px}.marquee-track li svg{width:24px;height:24px}}

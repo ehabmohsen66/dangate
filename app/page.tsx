@@ -6,7 +6,30 @@ import {RotatingWord,Magnifier,StatsStrip,PlatformMarquee,ProcessScroll,GccNetwo
 import {countries,insights} from '@/lib/content';
 import {SiriWave} from '@/components/ui/siri-wave';
 import {ResultsCard} from '@/components/results-card';
+import {JsonLd} from '@/components/json-ld';
+import {getFaqJsonLd} from '@/lib/seo';
+
+const homeFaqs = [
+  {
+    question: 'What consulting services does Dan Gate provide in Dubai and the GCC?',
+    answer: 'Dan Gate provides integrated advisory across Business Strategy, Marketing & Growth, and Technology & Digital, including CRM consulting, digital transformation, technical SEO, media buying, and AI automation.',
+  },
+  {
+    question: 'Where is Dan Gate based, and which markets do you serve?',
+    answer: 'Dan Gate is headquartered in Dubai, United Arab Emirates, and consults for enterprises and growth companies across the UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, and Oman.',
+  },
+  {
+    question: 'How do Dan Gate consultants work with internal client teams?',
+    answer: 'Our senior specialists work directly with leadership and operational teams through strategic planning, hands-on implementation, and capability building.',
+  },
+  {
+    question: 'How does Dan Gate connect strategy with technical execution?',
+    answer: 'We unite commercial growth planning with practical technical execution in CRM platforms, modern web architecture, workflow automation, and attribution analytics.',
+  },
+];
+
 export default function Home(){return <main id="main">
+<JsonLd data={getFaqJsonLd(homeFaqs)}/>
 <section className="hero"><div className="hero-copy"><span className="eyebrow">DUBAI ROOTS. GCC AMBITION.</span><h1>Strategy.<br/>Technology.<br/><RotatingWord/></h1><p>Good advice connects the dots.<br/>We connect business, marketing and technology<br className="desktop"/> to help your next chapter take shape.</p><div className="hero-actions"><Link className="button" href="/contact">Discuss your challenge <ArrowUpRight size={20}/></Link><a className="hero-discover" href="#expertise">Discover our expertise <ArrowDown size={16}/></a></div></div><div className="hero-visual"><div className="hero-scene"><img className="hero-base" src="/images/dubai.jpg" alt="Dubai skyline with the Burj Khalifa across the waterfront" width="2600" height="1463" fetchPriority="high"/><div className="hero-sky" aria-hidden="true"/><img className="hero-skyline" src="/images/dubai-skyline.webp" alt="" aria-hidden="true" width="2600" height="1463"/></div><div className="hero-image-caption"><span>25.2048° N / 55.2708° E</span><span>DUBAI, UAE</span></div><div className="hero-image-message"><span>Built on experience.<br/>Focused on what’s next.</span><ArrowUpRight size={43} strokeWidth={1}/></div></div></section>
 <StatsStrip/>
 <PlatformMarquee/>

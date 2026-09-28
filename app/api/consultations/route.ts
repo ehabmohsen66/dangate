@@ -1,5 +1,6 @@
 import {consultationSchema} from '@/lib/consultation';
 import {generateCaptcha, verifyCaptcha} from '@/lib/captcha';
+import {sendConsultationNotification} from '@/lib/email';
 
 // In-memory rate limiting and storage for environments without Cloudflare D1
 interface ConsultationRecord {
@@ -173,6 +174,24 @@ export async function POST(request: Request) {
         createdAt: now,
         ipHash
       });
+    }
+
+    // Trigger email notification to info@digitology.co and ehabmohsen66@gmail.com
+    try {
+      await sendConsultationNotification({
+        reference,
+        name: d.name,
+        company: d.company,
+        jobTitle: d.jobTitle,
+        email: d.email,
+        phone: d.phone,
+        country: d.country,
+        service: d.service,
+        challenge: d.challenge,
+        createdAt: now,
+      });
+    } catch (emailErr) {
+      console.error('[Consultation API] Email dispatch error:', emailErr);
     }
 
     return Response.json({reference}, {status: 201});

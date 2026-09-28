@@ -1,2 +1,15 @@
-TURNSTILE_SITE_KEY=1x00000000000000000000AA
-TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+# Email Notification Configuration (Choose any one provider)
+# 1. Resend (Recommended, easiest setup: https://resend.com)
+RESEND_API_KEY=re_your_api_key_here
+
+# 2. Or SendGrid: https://sendgrid.com
+# SENDGRID_API_KEY=SG.your_api_key_here
+
+# 3. Or Custom Webhook / Formspree:
+# NOTIFICATION_WEBHOOK_URL=https://formspree.io/f/your_form_id
+
+# Optional custom sender address:
+EMAIL_FROM="Dan Gate <enquiries@dangate.com>"
+
+# Secret key for server-side math captcha verification:
+CAPTCHA_SECRET=your_custom_secret_key_here

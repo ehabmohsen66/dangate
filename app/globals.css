@@ -405,3 +405,15 @@ body{font-family:var(--font-display);-webkit-font-smoothing:antialiased}
   }
 }
 
+.captcha-box {
+  background: #f7f9fa;
+  border: 1px solid #d5dce2;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin-top: 6px;
+}
+.captcha-box:focus-within {
+  border-color: var(--blue, #075794);
+}
+
+

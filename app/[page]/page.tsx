@@ -141,11 +141,6 @@ export default async function ContentPage({
   const d = pageData[page];
   if (!d) notFound();
 
-  const turnstileSiteKey =
-    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
-    process.env.TURNSTILE_SITE_KEY ||
-    '1x00000000000000000000AA';
-
   const breadcrumbs = [
     { name: 'Home', path: '/' },
     { name: d.label, path: `/${page}` },
@@ -367,7 +362,7 @@ export default async function ContentPage({
               </p>
             </div>
           </div>
-          <ContactForm siteKey={turnstileSiteKey} />
+          <ContactForm />
         </section>
       )}
       {page === 'privacy' && (

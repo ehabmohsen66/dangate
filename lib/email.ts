@@ -104,7 +104,7 @@ Dubai, United Arab Emirates
   const resendApiKey = process.env.RESEND_API_KEY;
   if (resendApiKey) {
     try {
-      const fromEmail = process.env.EMAIL_FROM || 'Dan Gate <enquiries@dangate.com>';
+      const fromEmail = process.env.EMAIL_FROM || 'Dan Gate <consultations@dangate.net>';
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
